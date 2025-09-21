@@ -2,9 +2,11 @@ import os
 import random
 import time
 
-
 class SimpleSnake:
     def __init__(self):
+        self.reset()
+
+    def reset(self):
         self.width = 20
         self.height = 10
         self.snake = [[5, 5]]
@@ -24,6 +26,7 @@ class SimpleSnake:
         print("ПРАВИЛА:")
         print("• Управление: W (вверх), A (влево), S (вниз), D (вправо)")
         print("• Q - выход из игры")
+        print("• R - перезапуск игры")
         print("• Собирайте * чтобы увеличивать счет")
         print("• Не врезайтесь в стены и в себя")
         print("================")
@@ -79,14 +82,29 @@ class SimpleSnake:
 
             if move == 'q':
                 break
+            elif move == 'r':
+                self.reset()
+                continue
             if move in ['w', 'a', 's', 'd']:
                 self.direction = move
 
             if not self.move():
-                print("Игра окончена!")
-                break
-
+                print("Игра окончена! Нажмите R для рестарта или Q для выхода")
+                while True:
+                    choice = input().lower()
+                    if choice == 'r':
+                        self.reset()
+                        break
+                    elif choice == 'q':
+                        return
+                    else:
+                        print("Неверный ввод. Нажмите R или Q")
 
 if __name__ == "__main__":
     game = SimpleSnake()
+    game.play()
+
+if __name__ == "__main__":
+    game = SimpleSnake()
+
     game.play()
